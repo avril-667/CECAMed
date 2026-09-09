@@ -31,6 +31,7 @@ public class CECAMedApp extends Application {
     private com.cecarmed.service.PacienteService pacienteService;
     private com.cecarmed.service.CitaService citaService;
     private com.cecarmed.service.SalaEsperaService salaEsperaService;
+    private com.cecarmed.service.MedicoService medicoService;
     private UsuarioRepository usuarioRepository;
 
     @Override
@@ -69,6 +70,8 @@ public class CECAMedApp extends Application {
                     new com.cecarmed.infrastructure.persistence.JdbcAtencionSalaRepository(dataSource);
             this.salaEsperaService = new com.cecarmed.service.SalaEsperaService(atencionRepository, citaRepository, auditoriaRepository);
 
+            this.medicoService = new com.cecarmed.service.MedicoService(usuarioRepository, auditoriaRepository);
+
             // Sembrar administrador inicial si no existe ninguno
             authService.seedDefaultAdminIfEmpty();
         } catch (Exception e) {
@@ -84,7 +87,7 @@ public class CECAMedApp extends Application {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/LoginView.fxml"));
             loader.setControllerFactory(param -> {
                 if (param == LoginController.class) {
-                    LoginController controller = new LoginController(authService, pacienteService, citaService, salaEsperaService, usuarioRepository);
+                    LoginController controller = new LoginController(authService, pacienteService, citaService, salaEsperaService, usuarioRepository, medicoService);
                     controller.setStage(primaryStage);
                     return controller;
                 }

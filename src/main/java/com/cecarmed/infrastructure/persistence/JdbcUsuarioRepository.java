@@ -123,6 +123,75 @@ public class JdbcUsuarioRepository implements UsuarioRepository {
     }
 
     @Override
+    public List<Usuario> findAllMedicos() {
+        String sql = """
+                SELECT id, nombre_completo, username, password_hash, rol, cedula_profesional,
+                       especialidad, email, telefono, activo, fecha_creacion, fecha_actualizacion
+                FROM usuario
+                WHERE rol = 'MEDICO'
+                ORDER BY activo DESC, nombre_completo ASC
+                """;
+
+        List<Usuario> list = new ArrayList<>();
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                list.add(mapResultSetToUsuario(rs));
+            }
+        } catch (SQLException e) {
+            log.error("Error al listar todos los médicos", e);
+            throw new RuntimeException("Error en base de datos al listar médicos", e);
+        }
+        return list;
+    }
+
+    @Override
+    public List<Usuario> searchMedicos(String query) {
+        if (query == null || query.isBlank()) {
+            return findAllMedicos();
+        }
+
+        String sql = """
+                SELECT id, nombre_completo, username, password_hash, rol, cedula_profesional,
+                       especialidad, email, telefono, activo, fecha_creacion, fecha_actualizacion
+                FROM usuario
+                WHERE rol = 'MEDICO'
+                  AND (
+                      LOWER(nombre_completo) LIKE ?
+                      OR LOWER(COALESCE(cedula_profesional, '')) LIKE ?
+                      OR LOWER(COALESCE(especialidad, '')) LIKE ?
+                      OR LOWER(username) LIKE ?
+                      OR LOWER(COALESCE(email, '')) LIKE ?
+                      OR COALESCE(telefono, '') LIKE ?
+                  )
+                ORDER BY activo DESC, nombre_completo ASC
+                """;
+
+        String pattern = "%" + query.trim().toLowerCase() + "%";
+        List<Usuario> list = new ArrayList<>();
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, pattern);
+            ps.setString(2, pattern);
+            ps.setString(3, pattern);
+            ps.setString(4, pattern);
+            ps.setString(5, pattern);
+            ps.setString(6, pattern);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    list.add(mapResultSetToUsuario(rs));
+                }
+            }
+        } catch (SQLException e) {
+            log.error("Error al buscar médicos con filtro: {}", query, e);
+            throw new RuntimeException("Error en base de datos al buscar médicos", e);
+        }
+        return list;
+    }
+
+    @Override
     public Usuario save(Usuario usuario) {
         String sql = """
                 INSERT INTO usuario (nombre_completo, username, password_hash, rol, cedula_profesional,

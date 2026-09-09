@@ -33,16 +33,19 @@ public class LoginController {
     private final CitaService citaService;
     private final SalaEsperaService salaEsperaService;
     private final UsuarioRepository usuarioRepository;
+    private final com.cecarmed.service.MedicoService medicoService;
     private Stage stage;
 
     public LoginController(AuthService authService, PacienteService pacienteService,
                            CitaService citaService, SalaEsperaService salaEsperaService,
-                           UsuarioRepository usuarioRepository) {
+                           UsuarioRepository usuarioRepository,
+                           com.cecarmed.service.MedicoService medicoService) {
         this.authService = authService;
         this.pacienteService = pacienteService;
         this.citaService = citaService;
         this.salaEsperaService = salaEsperaService;
         this.usuarioRepository = usuarioRepository;
+        this.medicoService = medicoService;
     }
 
     @FXML
@@ -101,7 +104,7 @@ public class LoginController {
             javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/views/MainView.fxml"));
             loader.setControllerFactory(param -> {
                 if (param == MainController.class) {
-                    MainController ctrl = new MainController(authService, pacienteService, citaService, salaEsperaService, usuarioRepository);
+                    MainController ctrl = new MainController(authService, pacienteService, citaService, salaEsperaService, usuarioRepository, medicoService);
                     ctrl.setStage(stage);
                     return ctrl;
                 }

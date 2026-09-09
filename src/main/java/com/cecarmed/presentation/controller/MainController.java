@@ -7,6 +7,7 @@ import com.cecarmed.presentation.theme.ThemeManager;
 import com.cecarmed.domain.repository.UsuarioRepository;
 import com.cecarmed.service.AuthService;
 import com.cecarmed.service.CitaService;
+import com.cecarmed.service.MedicoService;
 import com.cecarmed.service.PacienteService;
 import com.cecarmed.service.SalaEsperaService;
 import javafx.fxml.FXML;
@@ -37,6 +38,7 @@ public class MainController {
 
     @FXML private Button btnNavDashboard;
     @FXML private Button btnNavPacientes;
+    @FXML private Button btnNavMedicos;
     @FXML private Button btnNavCitas;
     @FXML private Button btnNavSalaEspera;
     @FXML private Button btnNavConfig;
@@ -48,16 +50,18 @@ public class MainController {
     private final CitaService citaService;
     private final SalaEsperaService salaEsperaService;
     private final UsuarioRepository usuarioRepository;
+    private final MedicoService medicoService;
     private Stage stage;
 
     public MainController(AuthService authService, PacienteService pacienteService,
                           CitaService citaService, SalaEsperaService salaEsperaService,
-                          UsuarioRepository usuarioRepository) {
+                          UsuarioRepository usuarioRepository, MedicoService medicoService) {
         this.authService = authService;
         this.pacienteService = pacienteService;
         this.citaService = citaService;
         this.salaEsperaService = salaEsperaService;
         this.usuarioRepository = usuarioRepository;
+        this.medicoService = medicoService;
     }
 
     public void setStage(Stage stage) {
@@ -125,6 +129,28 @@ public class MainController {
             contentArea.getChildren().setAll(node);
         } catch (IOException e) {
             log.error("Error al cargar PacientesView", e);
+        }
+    }
+
+    @FXML
+    public void showMedicos() {
+        setActiveButton(btnNavMedicos);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/MedicosView.fxml"));
+            loader.setControllerFactory(param -> {
+                if (param == MedicosController.class) {
+                    return new MedicosController(medicoService);
+                }
+                try {
+                    return param.getDeclaredConstructor().newInstance();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            Node node = loader.load();
+            contentArea.getChildren().setAll(node);
+        } catch (IOException e) {
+            log.error("Error al cargar MedicosView", e);
         }
     }
 
@@ -204,7 +230,7 @@ public class MainController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/LoginView.fxml"));
             loader.setControllerFactory(param -> {
                 if (param == LoginController.class) {
-                    LoginController ctrl = new LoginController(authService, pacienteService, citaService, salaEsperaService, usuarioRepository);
+                    LoginController ctrl = new LoginController(authService, pacienteService, citaService, salaEsperaService, usuarioRepository, medicoService);
                     ctrl.setStage(stage);
                     return ctrl;
                 }
@@ -264,7 +290,7 @@ public class MainController {
     }
 
     private void setActiveButton(Button activeBtn) {
-        List<Button> buttons = List.of(btnNavDashboard, btnNavPacientes, btnNavCitas, btnNavSalaEspera, btnNavConfig);
+        List<Button> buttons = List.of(btnNavDashboard, btnNavPacientes, btnNavMedicos, btnNavCitas, btnNavSalaEspera, btnNavConfig);
         for (Button btn : buttons) {
             btn.getStyleClass().remove("nav-button-active");
         }

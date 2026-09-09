@@ -5,7 +5,8 @@
 <?import javafx.scene.layout.*?>
 
 <VBox prefWidth="540.0" prefHeight="580.0" spacing="16.0" styleClass="main-container"
-      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.cecarmed.presentation.controller.CitaDialogController">
     <padding>
         <Insets bottom="24.0" left="24.0" right="24.0" top="24.0"/>
     </padding>

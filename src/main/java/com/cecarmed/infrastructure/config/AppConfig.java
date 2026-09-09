@@ -72,7 +72,7 @@ public final class AppConfig {
     public static String getJdbcUrl() {
         String host = get("db.host", "localhost");
         int port = getInt("db.port", 5432);
-        String dbName = get("db.name", "cecarmed_db");
+        String dbName = get("db.name", "cecamed_db");
         return String.format("jdbc:postgresql://%s:%d/%s", host, port, dbName);
     }
 

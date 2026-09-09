@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox prefWidth="560.0" prefHeight="580.0" spacing="16.0" styleClass="main-container"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.cecarmed.presentation.controller.MedicoDialogController">
+    <padding>
+        <Insets bottom="24.0" left="24.0" right="24.0" top="24.0"/>
+    </padding>
+    <children>
+        <!-- Encabezado del Diálogo -->
+        <VBox spacing="4.0">
+            <Label fx:id="lblDialogTitle" text="Registrar Nuevo Médico" styleClass="title-2"/>
+            <Label text="Ingresa los datos profesionales, de contacto y credenciales del médico." styleClass="text-muted"/>
+        </VBox>
+
+        <!-- Mensaje de Error si la validación falla -->
+        <Label fx:id="lblError" managed="false" visible="false" styleClass="alert-box, danger-text" wrapText="true"/>
+
+        <!-- Formulario con Scroll -->
+        <ScrollPane fitToWidth="true" styleClass="content-scroll" VBox.vgrow="ALWAYS">
+            <content>
+                <VBox spacing="14.0">
+                    <padding>
+                        <Insets bottom="10.0" left="4.0" right="4.0" top="4.0"/>
+                    </padding>
+                    <children>
+                        <!-- Sección: Información Profesional -->
+                        <Label text="INFORMACIÓN PROFESIONAL" styleClass="sidebar-section-title"/>
+
+                        <VBox spacing="4.0">
+                            <Label text="Nombre Completo (con título) *" styleClass="form-label"/>
+                            <TextField fx:id="txtNombreCompleto" promptText="Ej: Dr. Roberto Gómez Bolaños"/>
+                        </VBox>
+
+                        <GridPane hgap="14.0" vgap="12.0">
+                            <columnConstraints>
+                                <ColumnConstraints percentWidth="50.0"/>
+                                <ColumnConstraints percentWidth="50.0"/>
+                            </columnConstraints>
+                            <children>
+                                <VBox spacing="4.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                    <Label text="Cédula Profesional *" styleClass="form-label"/>
+                                    <TextField fx:id="txtCedula" promptText="Ej: 12345678"/>
+                                </VBox>
+                                <VBox spacing="4.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                    <Label text="Especialidad Médica *" styleClass="form-label"/>
+                                    <ComboBox fx:id="cbEspecialidad" editable="true" maxWidth="Infinity" promptText="Seleccionar o escribir..."/>
+                                </VBox>
+                            </children>
+                        </GridPane>
+
+                        <Separator/>
+
+                        <!-- Sección: Información de Contacto -->
+                        <Label text="INFORMACIÓN DE CONTACTO" styleClass="sidebar-section-title"/>
+
+                        <GridPane hgap="14.0" vgap="12.0">
+                            <columnConstraints>
+                                <ColumnConstraints percentWidth="50.0"/>
+                                <ColumnConstraints percentWidth="50.0"/>
+                            </columnConstraints>
+                            <children>
+                                <VBox spacing="4.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                    <Label text="Teléfono Principal *" styleClass="form-label"/>
+                                    <TextField fx:id="txtTelefono" promptText="Ej: 555-123-4567"/>
+                                </VBox>
+                                <VBox spacing="4.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                    <Label text="Correo Electrónico" styleClass="form-label"/>
+                                    <TextField fx:id="txtEmail" promptText="ejemplo@cecarmed.com"/>
+                                </VBox>
+                            </children>
+                        </GridPane>
+
+                        <Separator/>
+
+                        <!-- Sección: Credenciales de Acceso al Sistema -->
+                        <Label text="CREDENCIALES DE ACCESO AL SISTEMA" styleClass="sidebar-section-title"/>
+
+                        <GridPane hgap="14.0" vgap="12.0">
+                            <columnConstraints>
+                                <ColumnConstraints percentWidth="50.0"/>
+                                <ColumnConstraints percentWidth="50.0"/>
+                            </columnConstraints>
+                            <children>
+                                <VBox spacing="4.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                    <Label text="Nombre de Usuario (Login) *" styleClass="form-label"/>
+                                    <TextField fx:id="txtUsername" promptText="Ej: rgomez"/>
+                                </VBox>
+                                <VBox spacing="4.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                    <Label fx:id="lblPassword" text="Contraseña de Acceso *" styleClass="form-label"/>
+                                    <PasswordField fx:id="txtPassword" promptText="Mínimo 6 caracteres"/>
+                                </VBox>
+                            </children>
+                        </GridPane>
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
+
+        <!-- Botones de Acción -->
+        <HBox alignment="CENTER_RIGHT" spacing="12.0">
+            <Button text="Cancelar" onAction="#handleCancelar" styleClass="button-outlined"/>
+            <Button fx:id="btnGuardar" text="Guardar Médico" onAction="#handleGuardar" styleClass="accent, button-action"/>
+        </HBox>
+    </children>
+</VBox>

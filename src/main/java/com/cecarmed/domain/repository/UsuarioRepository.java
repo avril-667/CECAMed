@@ -19,6 +19,10 @@ public interface UsuarioRepository {
 
     List<Usuario> findByRol(Rol rol);
 
+    List<Usuario> findAllMedicos();
+
+    List<Usuario> searchMedicos(String query);
+
     Usuario save(Usuario usuario);
 
     void update(Usuario usuario);

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="18.0" styleClass="content-area"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets bottom="24.0" left="28.0" right="28.0" top="24.0"/>
+    </padding>
+    <children>
+        <!-- Encabezado de la Sección -->
+        <HBox alignment="CENTER_LEFT" spacing="16.0">
+            <children>
+                <VBox spacing="4.0">
+                    <Label text="Agenda y Control de Citas Médicas" styleClass="title-1"/>
+                    <Label text="Consulta la programación de consultas, previene traslapes y sincroniza con Google Calendar." styleClass="text-muted"/>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="btnNuevaCita" text="+ Agendar Nueva Cita" onAction="#handleNuevaCita"
+                        styleClass="accent, button-action" prefHeight="38.0"/>
+            </children>
+        </HBox>
+
+        <!-- Barra de Filtros por Fecha y Médico -->
+        <HBox alignment="CENTER_LEFT" spacing="14.0" styleClass="card">
+            <padding>
+                <Insets bottom="12.0" left="16.0" right="16.0" top="12.0"/>
+            </padding>
+            <children>
+                <VBox spacing="2.0">
+                    <Label text="Fecha de Agenda" styleClass="form-label"/>
+                    <DatePicker fx:id="dpFecha" prefHeight="36.0" prefWidth="170.0"/>
+                </VBox>
+
+                <VBox spacing="2.0">
+                    <Label text="Médico" styleClass="form-label"/>
+                    <ComboBox fx:id="cbFiltroMedico" promptText="Todos los médicos" prefHeight="36.0" prefWidth="240.0"/>
+                </VBox>
+
+                <VBox spacing="2.0" alignment="BOTTOM_LEFT">
+                    <Button text="Refrescar" onAction="#handleRefrescar" styleClass="button-outlined" prefHeight="36.0"/>
+                </VBox>
+
+                <ProgressIndicator fx:id="progressCitas" prefHeight="22.0" prefWidth="22.0" visible="false"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label fx:id="lblTotalCitas" text="Total: 0 citas" styleClass="text-muted, form-label"/>
+            </children>
+        </HBox>
+
+        <!-- Tabla de Citas -->
+        <TableView fx:id="tblCitas" VBox.vgrow="ALWAYS" styleClass="striped">
+            <columns>
+                <TableColumn fx:id="colHorario" prefWidth="120.0" text="Horario"/>
+                <TableColumn fx:id="colPaciente" prefWidth="220.0" text="Paciente"/>
+                <TableColumn fx:id="colMedico" prefWidth="200.0" text="Médico Asignado"/>
+                <TableColumn fx:id="colMotivo" prefWidth="220.0" text="Motivo de Consulta"/>
+                <TableColumn fx:id="colEstado" prefWidth="120.0" text="Estado"/>
+                <TableColumn fx:id="colAcciones" prefWidth="180.0" text="Acciones"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+        </TableView>
+    </children>
+</VBox>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox prefWidth="540.0" prefHeight="580.0" spacing="16.0" styleClass="main-container"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets bottom="24.0" left="24.0" right="24.0" top="24.0"/>
+    </padding>
+    <children>
+        <VBox spacing="4.0">
+            <Label text="Agendar Nueva Cita Médica" styleClass="title-2"/>
+            <Label text="Programa la cita validando automáticamente disponibilidad y traslapes." styleClass="text-muted"/>
+        </VBox>
+
+        <Label fx:id="lblError" managed="false" visible="false" styleClass="alert-box, danger-text" wrapText="true"/>
+
+        <ScrollPane fitToWidth="true" styleClass="content-scroll" VBox.vgrow="ALWAYS">
+            <content>
+                <VBox spacing="14.0">
+                    <VBox spacing="4.0">
+                        <Label text="Paciente *" styleClass="form-label"/>
+                        <ComboBox fx:id="cbPaciente" maxWidth="Infinity" promptText="Seleccionar paciente..."/>
+                    </VBox>
+
+                    <VBox spacing="4.0">
+                        <Label text="Médico Asignado *" styleClass="form-label"/>
+                        <ComboBox fx:id="cbMedico" maxWidth="Infinity" promptText="Seleccionar médico..."/>
+                    </VBox>
+
+                    <GridPane hgap="12.0" vgap="12.0">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="50.0"/>
+                            <ColumnConstraints percentWidth="50.0"/>
+                        </columnConstraints>
+                        <children>
+                            <VBox spacing="4.0" GridPane.columnIndex="0">
+                                <Label text="Fecha de la Cita *" styleClass="form-label"/>
+                                <DatePicker fx:id="dpFecha" maxWidth="Infinity"/>
+                            </VBox>
+
+                            <VBox spacing="4.0" GridPane.columnIndex="1">
+                                <Label text="Hora de Inicio *" styleClass="form-label"/>
+                                <ComboBox fx:id="cbHoraInicio" maxWidth="Infinity"/>
+                            </VBox>
+                        </children>
+                    </GridPane>
+
+                    <VBox spacing="4.0">
+                        <Label text="Duración Estimada" styleClass="form-label"/>
+                        <ComboBox fx:id="cbDuracion" maxWidth="Infinity"/>
+                    </VBox>
+
+                    <VBox spacing="4.0">
+                        <Label text="Motivo de la Consulta *" styleClass="form-label"/>
+                        <TextField fx:id="txtMotivo" promptText="Ej: Consulta general, dolor de cabeza..."/>
+                    </VBox>
+
+                    <VBox spacing="4.0">
+                        <Label text="Notas Adicionales" styleClass="form-label"/>
+                        <TextArea fx:id="txtNotas" prefRowCount="2" promptText="Instrucciones o requerimientos previos para el paciente"/>
+                    </VBox>
+                </VBox>
+            </content>
+        </ScrollPane>
+
+        <HBox alignment="CENTER_RIGHT" spacing="12.0">
+            <Button text="Cancelar" onAction="#handleCancelar" styleClass="button-outlined"/>
+            <Button fx:id="btnAgendar" text="Confirmar y Agendar" onAction="#handleAgendar" styleClass="accent, button-action"/>
+        </HBox>
+    </children>
+</VBox>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane prefHeight="550.0" prefWidth="480.0"
+           xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+           styleClass="root-pane">
+    <children>
+        <VBox alignment="CENTER" maxWidth="380.0" spacing="20.0" styleClass="card">
+            <padding>
+                <Insets bottom="32.0" left="28.0" right="28.0" top="32.0"/>
+            </padding>
+            <children>
+                <!-- Header / Branding -->
+                <VBox alignment="CENTER" spacing="6.0">
+                    <Label text="CECAMed" styleClass="title-1"/>
+                    <Label text="Sistema de Control y Gestión Médica" styleClass="text-muted"/>
+                </VBox>
+
+                <Separator/>
+
+                <!-- Mensaje de Error -->
+                <VBox fx:id="errorContainer" managed="false" visible="false" styleClass="alert-box">
+                    <Label fx:id="lblError" text="Credenciales inválidas" wrapText="true" styleClass="danger-text"/>
+                </VBox>
+
+                <!-- Formulario -->
+                <VBox spacing="14.0">
+                    <VBox spacing="6.0">
+                        <Label text="Usuario" styleClass="form-label"/>
+                        <TextField fx:id="txtUsername" promptText="Ingresa tu usuario institucional" prefHeight="38.0"/>
+                    </VBox>
+
+                    <VBox spacing="6.0">
+                        <Label text="Contraseña" styleClass="form-label"/>
+                        <PasswordField fx:id="txtPassword" promptText="••••••••••••" prefHeight="38.0"/>
+                    </VBox>
+                </VBox>
+
+                <!-- Botón de Login y Spinner -->
+                <VBox spacing="12.0" alignment="CENTER">
+                    <Button fx:id="btnLogin" text="Iniciar Sesión" onAction="#handleLogin"
+                            maxWidth="Infinity" prefHeight="40.0"
+                            styleClass="accent, button-action"/>
+                    <ProgressIndicator fx:id="progressIndicator" prefHeight="26.0" prefWidth="26.0" visible="false"/>
+                </VBox>
+
+                <!-- Footer info -->
+                <Label text="CECAMed v1.0 • Acceso Autorizado Únicamente"
+                       styleClass="text-caption, text-muted"/>
+            </children>
+        </VBox>
+    </children>
+</StackPane>

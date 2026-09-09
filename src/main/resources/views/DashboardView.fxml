@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane fitToWidth="true" styleClass="content-scroll"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.cecarmed.presentation.controller.DashboardController">
+    <content>
+        <VBox spacing="24.0">
+            <padding>
+                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/>
+            </padding>
+            <children>
+                <!-- Saludo y Fecha -->
+                <VBox spacing="4.0">
+                    <Label fx:id="lblWelcome" text="¡Hola, Bienvenido(a)!" styleClass="title-1"/>
+                    <Label fx:id="lblDate" text="Fecha actual" styleClass="text-muted"/>
+                </VBox>
+
+                <!-- Grid de Métricas / Tarjetas Resumen -->
+                <GridPane hgap="18.0" vgap="18.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="ALWAYS" percentWidth="25.0"/>
+                        <ColumnConstraints hgrow="ALWAYS" percentWidth="25.0"/>
+                        <ColumnConstraints hgrow="ALWAYS" percentWidth="25.0"/>
+                        <ColumnConstraints hgrow="ALWAYS" percentWidth="25.0"/>
+                    </columnConstraints>
+                    <children>
+                        <!-- Tarjeta 1: Citas Hoy -->
+                        <VBox spacing="8.0" styleClass="card, metric-card" GridPane.columnIndex="0">
+                            <padding>
+                                <Insets bottom="16.0" left="18.0" right="18.0" top="16.0"/>
+                            </padding>
+                            <children>
+                                <Label text="Citas para Hoy" styleClass="metric-title"/>
+                                <Label fx:id="lblCitasHoy" text="0" styleClass="metric-value"/>
+                                <Label text="Agenda del día" styleClass="text-caption, text-muted"/>
+                            </children>
+                        </VBox>
+
+                        <!-- Tarjeta 2: Sala de Espera -->
+                        <VBox spacing="8.0" styleClass="card, metric-card" GridPane.columnIndex="1">
+                            <padding>
+                                <Insets bottom="16.0" left="18.0" right="18.0" top="16.0"/>
+                            </padding>
+                            <children>
+                                <Label text="En Sala de Espera" styleClass="metric-title"/>
+                                <Label fx:id="lblPacientesEnSala" text="0" styleClass="metric-value, accent-color"/>
+                                <Label text="Pacientes en turno" styleClass="text-caption, text-muted"/>
+                            </children>
+                        </VBox>
+
+                        <!-- Tarjeta 3: Consultas Realizadas -->
+                        <VBox spacing="8.0" styleClass="card, metric-card" GridPane.columnIndex="2">
+                            <padding>
+                                <Insets bottom="16.0" left="18.0" right="18.0" top="16.0"/>
+                            </padding>
+                            <children>
+                                <Label text="Consultas Atendidas" styleClass="metric-title"/>
+                                <Label fx:id="lblConsultasAtendidas" text="0" styleClass="metric-value, success-color"/>
+                                <Label text="Completadas hoy" styleClass="text-caption, text-muted"/>
+                            </children>
+                        </VBox>
+
+                        <!-- Tarjeta 4: Total Pacientes -->
+                        <VBox spacing="8.0" styleClass="card, metric-card" GridPane.columnIndex="3">
+                            <padding>
+                                <Insets bottom="16.0" left="18.0" right="18.0" top="16.0"/>
+                            </padding>
+                            <children>
+                                <Label text="Total Expedientes" styleClass="metric-title"/>
+                                <Label fx:id="lblTotalPacientes" text="0" styleClass="metric-value"/>
+                                <Label text="Pacientes registrados" styleClass="text-caption, text-muted"/>
+                            </children>
+                        </VBox>
+                    </children>
+                </GridPane>
+
+                <!-- Panel Informativo / Accesos Rápidos -->
+                <VBox spacing="14.0" styleClass="card">
+                    <padding>
+                        <Insets bottom="20.0" left="22.0" right="22.0" top="20.0"/>
+                    </padding>
+                    <children>
+                        <Label text="Estado General del Sistema CECAMed" styleClass="title-3"/>
+                        <Separator/>
+                        <Label text="Selecciona cualquiera de las opciones del menú lateral para comenzar a gestionar expedientes, coordinar la agenda médica o supervisar la sala de espera en tiempo real."
+                               wrapText="true" styleClass="text-muted"/>
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+    </content>
+</ScrollPane>

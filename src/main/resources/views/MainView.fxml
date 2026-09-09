@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="760.0" prefWidth="1100.0"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            styleClass="main-container">
+
+    <!-- Top Header Bar -->
+    <top>
+        <HBox alignment="CENTER_LEFT" prefHeight="64.0" spacing="16.0" styleClass="header-bar">
+            <padding>
+                <Insets left="24.0" right="24.0"/>
+            </padding>
+            <children>
+                <!-- Brand Title -->
+                <VBox alignment="CENTER_LEFT" spacing="2.0">
+                    <Label text="CECAMed" styleClass="brand-title"/>
+                    <Label text="Sistema de Control y Gestión Médica" styleClass="brand-subtitle"/>
+                </VBox>
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <!-- Acciones del Header -->
+                <HBox alignment="CENTER" spacing="14.0">
+                    <!-- Selector de Tema -->
+                    <Button fx:id="btnThemeToggle" onAction="#handleToggleTheme"
+                            text="🌙 Modo Oscuro" styleClass="flat, theme-toggle-btn"/>
+
+                    <Separator orientation="VERTICAL" prefHeight="30.0"/>
+
+                    <!-- User Info Chip -->
+                    <HBox alignment="CENTER" spacing="10.0" styleClass="user-chip">
+                        <VBox alignment="CENTER_RIGHT" spacing="2.0">
+                            <Label fx:id="lblUserName" text="Usuario en Sesión" styleClass="user-name"/>
+                            <Label fx:id="lblUserRole" text="MÉDICO" styleClass="badge, user-role-badge"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- Botón Logout -->
+                    <Button text="Salir" onAction="#handleLogout"
+                            styleClass="danger, button-outlined"/>
+                </HBox>
+            </children>
+        </HBox>
+    </top>
+
+    <!-- Sidebar Izquierdo -->
+    <left>
+        <VBox prefWidth="240.0" spacing="8.0" styleClass="sidebar">
+            <padding>
+                <Insets bottom="20.0" left="14.0" right="14.0" top="20.0"/>
+            </padding>
+            <children>
+                <Label text="NAVEGACIÓN" styleClass="sidebar-section-title"/>
+
+                <Button fx:id="btnNavDashboard" text="📊  Dashboard" onAction="#showDashboard"
+                        maxWidth="Infinity" alignment="BASELINE_LEFT" styleClass="nav-button"/>
+
+                <Button fx:id="btnNavPacientes" text="👥  Pacientes y Expedientes" onAction="#showPacientes"
+                        maxWidth="Infinity" alignment="BASELINE_LEFT" styleClass="nav-button"/>
+
+                <Button fx:id="btnNavCitas" text="📅  Agenda y Citas" onAction="#showCitas"
+                        maxWidth="Infinity" alignment="BASELINE_LEFT" styleClass="nav-button"/>
+
+                <Button fx:id="btnNavSalaEspera" text="⏱️  Sala de Espera" onAction="#showSalaEspera"
+                        maxWidth="Infinity" alignment="BASELINE_LEFT" styleClass="nav-button"/>
+
+                <Region VBox.vgrow="ALWAYS"/>
+
+                <Separator/>
+
+                <Label text="SISTEMA" styleClass="sidebar-section-title"/>
+                <Button fx:id="btnNavConfig" text="⚙️  Configuración" onAction="#showConfiguracion"
+                        maxWidth="Infinity" alignment="BASELINE_LEFT" styleClass="nav-button"/>
+            </children>
+        </VBox>
+    </left>
+
+    <!-- Área de Contenido Dinámico -->
+    <center>
+        <StackPane fx:id="contentArea" styleClass="content-area"/>
+    </center>
+
+</BorderPane>
